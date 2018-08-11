@@ -1,11 +1,14 @@
 package com.zensolutions.movieapp.Model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class UserResponse {
-    @SerializedName("results") private List<Movie> movieList;
+    @SerializedName("data")
+    @Expose
+    private List<Movie> movieList= null;
 
     public List<Movie> getMovieList(){return movieList;}
 
