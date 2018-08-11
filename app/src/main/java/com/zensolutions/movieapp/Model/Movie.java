@@ -1,17 +1,28 @@
 package com.zensolutions.movieapp.Model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 public class Movie implements Serializable{
-    @SerializedName("id") public String id;
+    @SerializedName("id")
+    @Expose
+    public String id;
 
-    @SerializedName("title") public String title;
+    @SerializedName("title")
+    @Expose
+    public String title;
 
-    @SerializedName("year") public String year;
+    @SerializedName("year")
+    @Expose
+    public String year;
 
-    @SerializedName("genre") public String genre;
+    @SerializedName("genre")
+    @Expose
+    public String genre;
 
-    @SerializedName("poser") public String poster;
+    @SerializedName("poster")
+    @Expose
+    public String poster;
 }

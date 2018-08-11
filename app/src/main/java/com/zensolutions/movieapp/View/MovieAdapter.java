@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 
 import com.zensolutions.movieapp.Model.Movie;
@@ -13,11 +15,15 @@ import com.zensolutions.movieapp.ViewModel.ItemMovieViewModel;
 import com.zensolutions.movieapp.databinding.ItemMovieBinding;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> implements Filterable{
     private List<Movie> movieList;
+    private List<Movie> filteredMovieList= new ArrayList<>();
+    private List<Movie> savedMovieList= new ArrayList<>();
+
     public MovieAdapter(){this.movieList= Collections.emptyList();}
 
     @NonNull
@@ -29,17 +35,57 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.MovieAdapterViewHolder holder, int position) {
-        holder.bindMovie(movieList.get(position));
+        holder.bindMovie(filteredMovieList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+        return filteredMovieList.size();
     }
 
     public void setMovieList(List<Movie> movieList){
         this.movieList= movieList;
+        filteredMovieList= movieList;
+        savedMovieList= movieList;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter(){
+
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString= charSequence.toString();
+                if(charString.isEmpty() || charString.equals("")){
+                    filteredMovieList= savedMovieList;
+                }
+                else{
+                    List<Movie> fMovie= new ArrayList<>();
+                    for(Movie movie: savedMovieList){
+                        if(movie.title.toLowerCase().contains(charString) || movie.genre.toLowerCase().contains(charString)){
+                            fMovie.add(movie);
+                        }
+                    }
+                    filteredMovieList= fMovie;
+                }
+                FilterResults filterResults= new FilterResults();
+                filterResults.values = filteredMovieList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                if(filterResults.values != null){
+                    filteredMovieList= (ArrayList<Movie>)filterResults.values;
+                    notifyDataSetChanged();
+                }
+                else{
+                    filteredMovieList= savedMovieList;
+                    notifyDataSetChanged();
+                }
+            }
+        };
     }
 
     public static class MovieAdapterViewHolder extends RecyclerView.ViewHolder{
@@ -55,9 +101,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
                 itemMovieBinding.setMovieViewModel(new ItemMovieViewModel(movie, itemView.getContext()));
             }
             else{
-                //??
                 itemMovieBinding.getMovieViewModel();
             }
         }
     }
+
+
 }

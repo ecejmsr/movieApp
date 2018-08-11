@@ -1,5 +1,6 @@
 package com.zensolutions.movieapp.ViewModel;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -23,10 +24,12 @@ import static com.zensolutions.movieapp.Network.URL.BASE_URL;
 public class MovieViewModel extends Observable{
     public ObservableInt movieRecycler;
     public ObservableInt movieLabel;
+    private MutableLiveData<List<Movie>> mutableLiveData;
 
     private List<Movie> movieList;
     private Context context;
     private CompositeDisposable compositeDisposable= new CompositeDisposable();
+
 
     public MovieViewModel(Context context){
         this.context= context;
