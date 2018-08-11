@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"></import>
+
+        <variable
+            name="movieViewModel"
+            type="com.zensolutions.movieapp.ViewModel.ItemMovieViewModel"></variable>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/item_movie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        android:layout_margin="4dp"
+        app:cardUseCompatPadding="true"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/movie_photo"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/movite_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/movie_photo"
+                android:gravity="center"
+                android:text="@{movieViewModel.title}"
+                android:textSize="24dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieViewModel.genre}"
+                android:layout_alignRight="@id/movie_photo"
+                android:layout_alignTop="@id/movie_photo"
+                android:textSize="18dp"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</layout>
