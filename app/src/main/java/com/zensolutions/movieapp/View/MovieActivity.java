@@ -13,7 +13,6 @@ import com.zensolutions.movieapp.databinding.ActivityMoviesBinding;
 
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.RecursiveAction;
 
 public class MovieActivity extends AppCompatActivity implements Observer {
     private ActivityMoviesBinding movieActivityBinding;
