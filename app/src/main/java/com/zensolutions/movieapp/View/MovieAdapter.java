@@ -101,7 +101,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
                 itemMovieBinding.setMovieViewModel(new ItemMovieViewModel(movie, itemView.getContext()));
             }
             else{
-                itemMovieBinding.getMovieViewModel();
+                itemMovieBinding.getMovieViewModel().setMovie(movie);
             }
         }
     }

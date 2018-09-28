@@ -39,4 +39,9 @@ public class ItemMovieViewModel extends BaseObservable{
     public void onItemClick(View v){
         //TODO JOE: go ahead and call movie detail activity
     }
+
+    public void setMovie(Movie movie){
+        this.movie=movie;
+        notifyChange();
+    }
 }
